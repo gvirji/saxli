@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ka">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guest house metreveli</title>
+  <style>
+    :root{--bg:#f7f7f7;--card:#fff;--accent:#2b6cb0;--muted:#666}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:var(--bg);color:#111}
+    header{background:linear-gradient(90deg,var(--accent),#3aa0d8);color:#fff;padding:28px 20px}
+    .container{max-width:1100px;margin:24px auto;padding:0 18px}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:6px 0 0;color:rgba(255,255,255,0.9)}
+
+    /* gallery grid */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+    .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 6px 20px rgba(20,20,20,0.06)}
+    .card img{width:100%;height:170px;object-fit:cover;display:block}
+    .card .meta{padding:12px}
+    .room-name{font-weight:600}
+    .room-sub{color:var(--muted);font-size:14px;margin-top:6px}
+    .price{margin-top:10px;font-weight:700;color:var(--accent)}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;margin-top:10px}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,0.5);z-index:60}
+    .modal.open{display:flex}
+    .modal-inner{width:100%;max-width:900px;background:#fff;border-radius:10px;overflow:hidden}
+    .modal-top{display:flex;gap:12px}
+    .modal-main{flex:1}
+    .modal-main img{width:100%;height:480px;object-fit:cover}
+    .thumbs{display:flex;gap:8px;padding:12px;overflow:auto}
+    .thumbs img{width:100px;height:70px;object-fit:cover;border-radius:6px;cursor:pointer}
+    .modal-side{width:320px;padding:16px}
+    .close-btn{background:#eee;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+
+    footer{padding:24px;text-align:center;color:var(--muted)}
+
+    /* responsive */
+    @media (max-width:700px){.modal-main img{height:240px}.modal-side{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Guest house metreveli</h1>
+      <p class="lead">პატარა საოჯახო სასტუმრო — კომფორტი, სიმყუდროვე და ბორჯომული სტუმართმოყვარეობა</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 style="margin-top:8px">სასიამოვნო დასვენებას გისურვებთ</h2>
+    <p style="color:var(--muted)">დააჭირე ფოტოს რათა იხილო დეტალური გალერეა</p>
+
+    <section class="gallery" id="rooms">
+      <!-- Room 1: საერთო მისაღები/აბანო/ტუალეტი/სამზარეულო -->
+      <article class="card" data-room='{"id":1,"name":"საერთო: მისაღები, აბანო, ტუალეტი, სამზარეულო","price":"" ,"photos":["1.jpg","2.jpg","t.jpg"]}'>
+        <img src="e.jpg" alt="მისაღები">
+        <div class="meta">
+          <div class="room-name">საერთო: მისაღები, აბანო, ტუალეტი, სამზარეულო</div>
+          <div class="room-sub">დეტალური ფოტოებიც ბრაუზერში იხილე</div>
+          <a class="btn" href="#" data-open="1">იხილე გალერეა</a>
+        </div>
+      </article>
+
+      <!-- Room 2 -->
+      <article class="card" data-room='{"id":2,"name":"საძინებელი #1 - 2 ადგილიანი (ტელევიზორით)","price":"50 ლ","photos":["n.jpg","n2.jpg","n3.jpg"]}'>
+        <img src="n3.jpg" alt="საძინებელი 1">
+        <div class="meta">
+          <div class="room-name">საძინებელი #1</div>
+          <div class="room-sub">2 ადგილიანი — ტელევიზორით</div>
+          <div class="price">50 ლ / ღამე</div>
+          <a class="btn" href="#" data-open="2">ახლა ნახე</a>
+        </div>
+      </article>
+
+      <!-- Room 3 -->
+      <article class="card" data-room='{"id":3,"name":"საძინებელი #2 - 2 ადგილიანი","price":"45 ლ","photos":["a.jpg","aa.jpg"]}'>
+        <img src="aa.jpg" alt="საძინებელი 2">
+        <div class="meta">
+          <div class="room-name">საძინებელი #2</div>
+          <div class="room-sub">2 ადგილიანი</div>
+          <div class="price">45 ლ / ღამე</div>
+          <a class="btn" href="#" data-open="3">იხილე ფოტოები</a>
+        </div>
+      </article>
+
+      <!-- Room 4 -->
+      <article class="card" data-room='{"id":4,"name":"საძინებელი #3 - 3 ადგილიანი","price":"60 ლ","photos":["l.jpg","l1.jpg","l2.jpg"]}'>
+        <img src="l1.jpg" alt="საძინებელი 3">
+        <div class="meta">
+          <div class="room-name">საძინებელი #3</div>
+          <div class="room-sub">3 ადგილიანი</div>
+          <div class="price">60 ლ / ღამე</div>
+          <a class="btn" href="#" data-open="4">გალერეა</a>
+        </div>
+      </article>
+
+      <!-- Room 5 -->
+      <article class="card" data-room='{"id":5,"name":"მანსარდი","price":"100 ლ","photos":["m.jpg","m1.jpg"]}'>
+        <img src="m.jpg" alt="მანსარდი">
+        <div class="meta">
+          <div class="room-name">მანსარდი</div>
+          <div class="room-sub">საუკეთესო ხედი და მყუდრო გარემო</div>
+          <div class="price">100 ლ / ღამე</div>
+          <a class="btn" href="#" data-open="5">იხილე</a>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Modal for gallery -->
+  <div class="modal" id="modal">
+    <div class="modal-inner">
+      <div style="display:flex;flex-direction:row;">
+        <div class="modal-main">
+          <img src="" id="modal-main-img" alt="">
+          <div class="thumbs" id="modal-thumbs"></div>
+        </div>
+        <aside class="modal-side">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <h3 id="modal-title">ოთახი</h3>
+              <div id="modal-price" style="color:var(--muted)"></div>
+            </div>
+            <div>
+              <button class="close-btn" id="modal-close">Close</button>
+            </div>
+          </div>
+          <p id="modal-desc" style="margin-top:12px;color:var(--muted)"></p>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Guest house metreveli — ყველა უფლება დაცულია გვირჯასგან </div>
+  </footer>
+
+  <script>
+    // small helper to parse room data and open gallery modal
+    const rooms = document.querySelectorAll('[data-room]');
+    const modal = document.getElementById('modal');
+    const modalMainImg = document.getElementById('modal-main-img');
+    const modalThumbs = document.getElementById('modal-thumbs');
+    const modalTitle = document.getElementById('modal-title');
+    const modalPrice = document.getElementById('modal-price');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalClose = document.getElementById('modal-close');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    rooms.forEach(card=>{
+      const openBtn = card.querySelector('[data-open]');
+      openBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const data = JSON.parse(card.getAttribute('data-room'));
+        openModal(data);
+      });
+    });
+
+    function openModal(data){
+      modal.classList.add('open');
+      modalTitle.textContent = data.name;
+      modalPrice.textContent = data.price ? (data.price+ ' / ღამე') : '';
+      modalDesc.textContent = '';
+      modalThumbs.innerHTML = '';
+      if(data.photos && data.photos.length){
+        modalMainImg.src = data.photos[0];
+        data.photos.forEach((p, idx)=>{
+          const im = document.createElement('img');
+          im.src = p; im.alt = data.name + ' photo '+(idx+1);
+          im.addEventListener('click', ()=>{ modalMainImg.src = p; });
+          modalThumbs.appendChild(im);
+        });
+      } else {
+        modalMainImg.src = '';
+      }
+    }
+    modalClose.addEventListener('click', ()=> modal.classList.remove('open'));
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.remove('open') });
+  </script>
+</body>
+</html>
